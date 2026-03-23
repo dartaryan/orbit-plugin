@@ -1,7 +1,8 @@
 {
   "name": "orbit-plugin",
-  "displayName": "ORBIT - AI Agent Routing Patterns",
-  "description": "5 atomic patterns for routing work between AI agents. The human acts as a router, orbiting between specialized AI agents, carrying structured artifacts between them.",
+  "metadata": {
+    "description": "5 atomic patterns for routing work between AI agents"
+  },
   "owner": {
     "name": "Ben Akiva",
     "email": "benakiva1991@gmail.com"
