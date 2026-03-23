@@ -1,0 +1,10 @@
+{
+  "name": "orbit",
+  "version": "1.0.0",
+  "description": "ORBIT — 5 atomic patterns for routing work between AI agents. The human acts as a router, orbiting between specialized AI agents, carrying structured artifacts between them.",
+  "author": {
+    "name": "Ben Akiva"
+  },
+  "keywords": ["agents", "routing", "orchestration", "workflow", "patterns"],
+  "skills": "./skills/"
+}
