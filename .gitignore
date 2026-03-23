@@ -17,6 +17,7 @@ dist/
 
 # Claude
 .claude/
+!.claude-plugin/
 
 # Misc
 *.log
