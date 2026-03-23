@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "orbit",
-      "source": "./",
+      "source": "./plugins/orbit",
       "version": "1.0.0",
       "description": "5 atomic patterns for routing work between AI agents — Recon, Orchestrate, Boomerang, Interchange, Transfer.",
       "category": "productivity",
