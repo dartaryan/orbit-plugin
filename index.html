@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en" data-active-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORBIT Plugin — Route Work Between AI Agents</title>
+  <meta name="description" content="ORBIT: 5 atomic patterns for routing work between AI agents. The human acts as a router, orbiting between specialized agents, carrying structured artifacts between them.">
+  <meta property="og:image" content="images/orbit-og.png">
+  <meta property="og:title" content="ORBIT Plugin — Route Work Between AI Agents">
+  <meta property="og:description" content="5 atomic patterns for routing work between AI agents. Don't write prompts — make agents write them for each other.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (orbit ring) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='none' stroke='%2300d4ff' stroke-width='4'/><circle cx='50' cy='10' r='8' fill='%2300d4ff'/></svg>">
+
+  <!-- Phosphor Icons -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-active-lang="en" dir="ltr">
+
+  <!-- Starfield Canvas -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-logo" aria-label="ORBIT Plugin home">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="50" cy="50" r="35" stroke="#00d4ff" stroke-width="2" opacity="0.5"/>
+        <circle cx="50" cy="50" r="22" stroke="#7c3aed" stroke-width="2" opacity="0.5"/>
+        <circle cx="50" cy="15" r="6" fill="#00d4ff"/>
+        <circle cx="78" cy="65" r="5" fill="#7c3aed"/>
+        <circle cx="22" cy="65" r="5" fill="#f59e0b"/>
+        <circle cx="50" cy="50" r="4" fill="#f1f5f9"/>
+      </svg>
+      ORBIT
+    </a>
+
+    <ul class="nav-links">
+      <li>
+        <a href="#skills">
+          <i class="ph-bold ph-compass" aria-hidden="true"></i>
+          <span data-lang="en">Skills</span>
+          <span data-lang="he">כלים</span>
+        </a>
+      </li>
+      <li>
+        <a href="#how-it-works">
+          <i class="ph-bold ph-flow-arrow" aria-hidden="true"></i>
+          <span data-lang="en">How It Works</span>
+          <span data-lang="he">איך זה עובד</span>
+        </a>
+      </li>
+      <li>
+        <a href="#install">
+          <i class="ph-bold ph-terminal-window" aria-hidden="true"></i>
+          <span data-lang="en">Install</span>
+          <span data-lang="he">התקנה</span>
+        </a>
+      </li>
+      <li>
+        <a href="#faq">
+          <i class="ph-bold ph-question" aria-hidden="true"></i>
+          <span data-lang="en">FAQ</span>
+          <span data-lang="he">שאלות</span>
+        </a>
+      </li>
+      <li>
+        <div class="lang-toggle" role="radiogroup" aria-label="Language">
+          <button class="lang-btn active" id="lang-en" role="radio" aria-checked="true">EN</button>
+          <button class="lang-btn" id="lang-he" role="radio" aria-checked="false">HE</button>
+        </div>
+      </li>
+    </ul>
+
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <img src="images/orbit-hero.png" alt="" class="hero-bg-image" aria-hidden="true">
+    <div class="container hero-content">
+      <div data-lang="en">
+        <div class="hero-badge"><i class="ph-bold ph-plug" aria-hidden="true"></i> Claude Code Plugin</div>
+        <h1>
+          Stop Prompting.<br>
+          <span class="gradient-text">Start Routing.</span>
+        </h1>
+        <p>
+          ORBIT gives you 5 atomic patterns for routing work between AI agents.
+          You don't write the prompts — you make agents write prompts for each other,
+          and carry structured artifacts between them. Think of yourself as air traffic control, not a pilot.
+        </p>
+      </div>
+      <div data-lang="he">
+        <div class="hero-badge"><i class="ph-bold ph-plug" aria-hidden="true"></i> Claude Code Plugin</div>
+        <h1>
+          להפסיק לכתוב פרומפטים.<br>
+          <span class="gradient-text">להתחיל לנתב.</span>
+        </h1>
+        <p>
+          ORBIT מספק 5 תבניות אטומיות לניתוב עבודה בין סוכני AI.
+          במקום לכתוב פרומפטים — גורמים לסוכנים לכתוב פרומפטים אחד לשני,
+          ומעבירים ביניהם מסמכים מובנים. הגישה היא מגדל פיקוח, לא טייס.
+        </p>
+      </div>
+      <div class="hero-actions">
+        <a href="#install" class="btn btn-primary">
+          <i class="ph-bold ph-rocket-launch" aria-hidden="true"></i>
+          <span data-lang="en">Get Started</span>
+          <span data-lang="he">להתחיל</span>
+        </a>
+        <a href="#skills" class="btn btn-secondary">
+          <i class="ph-bold ph-compass" aria-hidden="true"></i>
+          <span data-lang="en">Explore Skills</span>
+          <span data-lang="he">לגלות את הכלים</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHAT IS ORBIT? ========== -->
+  <section id="what-is-orbit">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">
+          <span data-lang="en">The Methodology</span>
+          <span data-lang="he">המתודולוגיה</span>
+        </span>
+        <h2 data-lang="en">What is ORBIT?</h2>
+        <h2 data-lang="he">מה זה ORBIT?</h2>
+      </div>
+      <div class="install-block reveal" style="max-width: 800px; margin: 0 auto;">
+        <div data-lang="en">
+          <p>You know that thing where you have Claude open in one tab, GPT in another, maybe Perplexity for research, and you're copy-pasting between them like a human USB cable? ORBIT turns that chaos into a methodology.</p>
+          <p style="margin-top: var(--space-md);">The core idea is simple: instead of writing prompts from scratch every time, you ask one agent to generate a prompt for another agent. The key insight — every generated prompt is completely self-contained. The receiving agent has zero context about your project. Everything it needs is baked into the prompt that ORBIT generates. No "as we discussed" — because nothing was discussed.</p>
+          <p style="margin-top: var(--space-md);">In practice, you become a router. You carry structured artifacts (prompts, documents, reports) between specialized agents. Each agent does what it's best at, and the handoff between them is clean and explicit. No context leaks, no "I forgot what we were doing", no re-explaining. You coordinate the orchestra — you don't play every instrument.</p>
+        </div>
+        <div data-lang="he">
+          <p>המצב מוכר: Claude פתוח בטאב אחד, GPT בטאב שני, אולי Perplexity לריסרץ', ובאמצע — copy-paste אינסופי כמו כבל USB אנושי. ORBIT הופך את הבלאגן הזה למתודולוגיה.</p>
+          <p style="margin-top: var(--space-md);">הרעיון בבסיס פשוט: במקום לכתוב פרומפטים מאפס כל פעם, מבקשים מסוכן אחד לייצר פרומפט לסוכן אחר. התובנה המרכזית — כל פרומפט שנוצר הוא עצמאי לחלוטין. הסוכן המקבל לא יודע כלום על הפרויקט. הכל, אבל הכל, נמצא בתוך הפרומפט ש-ORBIT מייצר. בלי "כמו שדיברנו" — כי לא דיברו.</p>
+          <p style="margin-top: var(--space-md);">בפרקטיקה, מי שעובד עם ORBIT הופך לנתב (router). מעבירים ארטיפקטים מובנים (פרומפטים, מסמכים, דוחות) בין סוכנים מתמחים. כל סוכן עושה את מה שהוא הכי טוב בו, וההעברה ביניהם נקייה ומפורשת. בלי דליפות קונטקסט, בלי "שכחתי על מה דיברנו", בלי הסברים מחדש. לנצח על התזמורת, לא לנגן על כל כלי.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ORBITAL DIAGRAM ========== -->
+  <section id="orbit-overview">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">
+          <span data-lang="en">The Method</span>
+          <span data-lang="he">השיטה</span>
+        </span>
+        <h2 data-lang="en">Five Patterns. Infinite Combinations.</h2>
+        <h2 data-lang="he">חמש תבניות. שילובים אינסופיים.</h2>
+        <p data-lang="en">Each letter in ORBIT is an atomic routing pattern. Chain them together for complex workflows.</p>
+        <p data-lang="he">כל אות ב-ORBIT היא תבנית ניתוב אטומית. לשרשר אותן יחד לתהליכי עבודה מורכבים.</p>
+      </div>
+
+      <img src="images/orbit-5-patterns.png" alt="The 5 ORBIT patterns — Orchestrate, Recon, Boomerang, Interchange, Transfer" class="section-image reveal" loading="lazy">
+
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">
+          <span data-lang="en">Skills</span>
+          <span data-lang="he">כלים</span>
+        </span>
+        <h2 data-lang="en">The ORBIT Toolkit</h2>
+        <h2 data-lang="he">ארגז הכלים של ORBIT</h2>
+        <p data-lang="en">5 atomic patterns + 2 compound workflows. Each skill generates ready-to-use prompts.</p>
+        <p data-lang="he">5 תבניות אטומיות + 2 תהליכים מורכבים. כל כלי מייצר פרומפטים מוכנים לשימוש.</p>
+      </div>
+
+      <!-- ATOMIC SKILLS -->
+      <div class="skills-grid">
+
+        <!-- O — Orchestrate -->
+        <div class="skill-card reveal reveal-delay-1" data-skill="o">
+          <div class="skill-card-letter"><i class="ph-bold ph-list-checks" aria-hidden="true"></i></div>
+          <h3 data-lang="en">Orchestrate</h3>
+          <h3 data-lang="he">Orchestrate</h3>
+          <p data-lang="en">
+            Your AI project manager. Orchestrate generates prompts that set up a planning agent
+            to coordinate multi-step projects. The planner creates sequential prompts for worker agents,
+            tracks progress, and adjusts the plan based on status reports. Think of a film director who
+            never touches the camera — just gives precise instructions to every specialist on set.
+            Use it when your project has moving parts that need coordination across multiple agents.
+          </p>
+          <p data-lang="he">
+            מנהל הפרויקט. Orchestrate מייצר פרומפטים שמקימים סוכן תכנון לתיאום פרויקטים רב-שלביים.
+            המתכנן יוצר פרומפטים סדרתיים לסוכני עבודה, עוקב אחרי התקדמות, ומתאים את התוכנית לפי
+            דוחות סטטוס. כמו במאי שלא נוגע במצלמה — רק נותן הוראות מדויקות לכל מקצוען על הסט.
+            מתאים לפרויקטים עם חלקים זזים שדורשים תיאום בין סוכנים.
+          </p>
+          <span class="skill-tag mono">/orbit:orchestrate</span>
+        </div>
+
+        <!-- R — Recon -->
+        <div class="skill-card reveal reveal-delay-2" data-skill="r">
+          <div class="skill-card-letter"><i class="ph-bold ph-binoculars" aria-hidden="true"></i></div>
+          <h3 data-lang="en">Recon</h3>
+          <h3 data-lang="he">Recon</h3>
+          <p data-lang="en">
+            Your eyes on target. Recon generates observation prompts for an agent that has access
+            to a specific target — a repo, a codebase, a live system. It defines exactly what to look at,
+            what to extract, what to ignore, and the report format coming back. Like sending a scout
+            to a known location with a field report template.
+            Use it when you need structured intelligence on something specific.
+          </p>
+          <p data-lang="he">
+            עיניים על המטרה. Recon מייצר פרומפטי תצפית לסוכן שיש לו גישה ליעד ספציפי — ריפו,
+            קודבייס, מערכת חיה. הוא מגדיר בדיוק מה לבדוק, מה לחלץ, מה להתעלם ממנו, ואיך
+            הדוח צריך להיראות. כמו לשלוח סייר לנקודה מוכרת עם תבנית דיווח מוכנה.
+            מתאים כשצריך מודיעין מובנה על משהו ספציפי.
+          </p>
+          <span class="skill-tag mono">/orbit:recon</span>
+        </div>
+
+        <!-- B — Boomerang -->
+        <div class="skill-card reveal reveal-delay-3" data-skill="b">
+          <div class="skill-card-letter"><i class="ph-bold ph-arrows-counter-clockwise" aria-hidden="true"></i></div>
+          <h3 data-lang="en">Boomerang</h3>
+          <h3 data-lang="he">Boomerang</h3>
+          <p data-lang="en">
+            Your research department. Boomerang generates TWO prompts: Prompt A defines search queries
+            for external tools (Perplexity, GPT, Gemini, whatever you use), and Prompt B defines an analysis
+            template to process the results. Like sending someone to the library with two notes — what to
+            search for, and how to organize what they find.
+            Use it when you need to query multiple AI tools and synthesize the results into something usable.
+          </p>
+          <p data-lang="he">
+            מחלקת המחקר. Boomerang מייצר שני פרומפטים: פרומפט A מגדיר שאילתות חיפוש לכלים חיצוניים
+            (Perplexity, GPT, Gemini, או כל כלי אחר), ופרומפט B מגדיר תבנית ניתוח לעיבוד התוצאות.
+            כמו לשלוח מישהו לספרייה עם שני פתקים — מה לחפש, ואיך לסדר את מה שנמצא.
+            מתאים כשצריך לשלוח שאילתות למספר כלי AI ולסנתז את התוצאות למשהו שמיש.
+          </p>
+          <span class="skill-tag mono">/orbit:boomerang</span>
+        </div>
+
+        <!-- I — Interchange -->
+        <div class="skill-card reveal reveal-delay-4" data-skill="i">
+          <div class="skill-card-letter"><i class="ph-bold ph-swap" aria-hidden="true"></i></div>
+          <h3 data-lang="en">Interchange</h3>
+          <h3 data-lang="he">Interchange</h3>
+          <p data-lang="en">
+            Your referral system. Interchange generates agent-to-agent handoff prompts.
+            In Sender Mode, the completing agent writes a referral — packaging exactly what the next
+            agent needs. In Receiver Mode, the receiving agent writes what it needs from the sender.
+            Zero context loss, like a referral between medical specialists.
+            Use it when one agent's output needs to become another agent's input.
+          </p>
+          <p data-lang="he">
+            מערכת ההפניות. Interchange מייצר פרומפטי העברה בין סוכנים. במצב Sender, הסוכן שסיים
+            כותב הפניה — אורז בדיוק את מה שהסוכן הבא צריך. במצב Receiver, הסוכן המקבל כותב
+            מה הוא צריך מהשולח. אפס אובדן קונטקסט, כמו הפניה בין רופאים מומחים.
+            מתאים כשהפלט של סוכן אחד צריך להפוך לאינפוט של סוכן אחר.
+          </p>
+          <span class="skill-tag mono">/orbit:interchange</span>
+        </div>
+
+        <!-- T — Transfer -->
+        <div class="skill-card reveal reveal-delay-5" data-skill="t">
+          <div class="skill-card-letter"><i class="ph-bold ph-floppy-disk" aria-hidden="true"></i></div>
+          <h3 data-lang="en">Transfer</h3>
+          <h3 data-lang="he">Transfer</h3>
+          <p data-lang="en">
+            Your save game button. Transfer generates a state capture prompt — the agent produces
+            a comprehensive continuation document. Not a summary — a full save-state. Everything you
+            need to pick up exactly where you left off in a fresh session. Like saving a video game,
+            not reviewing the game.
+            Use it when conversations get long and you need a clean restart without losing anything.
+          </p>
+          <p data-lang="he">
+            כפתור ה-Save Game. Transfer מייצר פרומפט לכידת מצב — הסוכן מפיק מסמך המשכיות מלא.
+            לא סיכום — שמירת מצב מלאה. הכל מה שצריך כדי להמשיך בדיוק מאיפה שעצרנו בסשן חדש.
+            כמו לשמור משחק, לא לעשות ריוויו על המשחק.
+            מתאים כששיחות מתארכות וצריך restart נקי בלי לאבד כלום.
+          </p>
+          <span class="skill-tag mono">/orbit:transfer</span>
+        </div>
+
+      </div>
+
+      <div class="section-header reveal" style="margin-top: var(--space-2xl);">
+        <h3 data-lang="en" style="font-size: 1.3rem;">Compound Workflows & Advisor</h3>
+        <h3 data-lang="he" style="font-size: 1.3rem;">תהליכים מורכבים ויועץ</h3>
+      </div>
+
+      <div class="skills-grid">
+
+        <!-- ADVISOR: Human Router -->
+        <div class="skill-card compound reveal reveal-delay-1" data-skill="compound">
+          <div class="skill-card-letter"><i class="ph-bold ph-signpost" aria-hidden="true"></i></div>
+          <h3 data-lang="en">Human Router</h3>
+          <h3 data-lang="he">Human Router</h3>
+          <p data-lang="en">
+            The advisor layer. Not sure which ORBIT pattern fits your situation? Human Router diagnoses
+            your multi-agent scenario, recommends the right pattern, explains trade-offs, and points you
+            to the correct skill. It doesn't generate prompts itself — it routes you to the one that does.
+          </p>
+          <p data-lang="he">
+            שכבת הייעוץ. לא ברור איזו תבנית ORBIT מתאימה למצב? Human Router מאבחן את התרחיש,
+            ממליץ על התבנית הנכונה, מסביר trade-offs, ומפנה לכלי המתאים.
+            הוא לא מייצר פרומפטים בעצמו — הוא מנתב לכלי שכן.
+          </p>
+          <span class="skill-tag mono">/orbit:human-router</span>
+        </div>
+
+        <!-- COMPOUND: KB Builder -->
+        <div class="skill-card compound reveal reveal-delay-1" data-skill="compound">
+          <div class="skill-card-letter"><i class="ph-bold ph-books" aria-hidden="true"></i></div>
+          <h3 data-lang="en">KB Builder <span style="color: var(--star-dim); font-size: 0.8em; font-weight: 400;">(B + O)</span></h3>
+          <h3 data-lang="he">KB Builder <span style="color: var(--star-dim); font-size: 0.8em; font-weight: 400;">(B + O)</span></h3>
+          <p data-lang="en">
+            The compound research-to-writing pipeline. 4 stages: scatter search across AI tools,
+            index all findings, plan chapters, execute tracked writing. Turns any topic into a structured,
+            cross-validated knowledge base. Useful when you need to go from "I know nothing about X"
+            to a comprehensive, organized document.
+          </p>
+          <p data-lang="he">
+            פייפליין מחקר-לכתיבה מורכב. 4 שלבים: חיפוש פזור על פני כלי AI, אינדוקס כל הממצאים,
+            תכנון פרקים, כתיבה עם מעקב. הופך כל נושא למאגר ידע מובנה ומצולב.
+            שימושי למעבר מ"לא יודעים כלום על X" למסמך מקיף ומסודר.
+          </p>
+          <span class="skill-tag mono">/orbit:kb-builder</span>
+        </div>
+
+        <!-- COMPOUND: Design Pipeline -->
+        <div class="skill-card compound reveal reveal-delay-2" data-skill="compound">
+          <div class="skill-card-letter"><i class="ph-bold ph-palette" aria-hidden="true"></i></div>
+          <h3 data-lang="en">Design Pipeline <span style="color: var(--star-dim); font-size: 0.8em; font-weight: 400;">(B + KB + O)</span></h3>
+          <h3 data-lang="he">Design Pipeline <span style="color: var(--star-dim); font-size: 0.8em; font-weight: 400;">(B + KB + O)</span></h3>
+          <p data-lang="en">
+            The full design research pipeline. 10 stages from PRD and design brief through research,
+            mockup generation, human curation, and all the way to production-ready design system.
+            Research-driven UI/UX design where every decision is backed by actual findings, not vibes.
+          </p>
+          <p data-lang="he">
+            פייפליין העיצוב המלא. 10 שלבים מ-PRD ובריף דרך מחקר, יצירת מוקאפים, קוראציה אנושית,
+            ועד מערכת עיצוב מוכנה לפרודקשן. עיצוב UI/UX מבוסס מחקר — כל החלטה נסמכת על
+            ממצאים אמיתיים, לא על ויבס.
+          </p>
+          <span class="skill-tag mono">/orbit:design-pipeline</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">
+          <span data-lang="en">How It Works</span>
+          <span data-lang="he">איך זה עובד</span>
+        </span>
+        <h2 data-lang="en">You Are the Router</h2>
+        <h2 data-lang="he">האדם הוא הנתב</h2>
+        <p data-lang="en">You don't write prompts between agents — you make them write prompts for each other.</p>
+        <p data-lang="he">לא כותבים פרומפטים בין סוכנים — גורמים להם לכתוב פרומפטים אחד לשני.</p>
+      </div>
+
+      <img src="images/orbit-how-it-works.png" alt="Human router concept — you at the center, routing between AI agent stations" class="section-image reveal" loading="lazy">
+
+      <div class="flow-steps reveal">
+        <div class="flow-step">
+          <div class="flow-step-number">1</div>
+          <div class="flow-step-content">
+            <i class="ph-bold ph-chat-text" aria-hidden="true"></i>
+            <span data-lang="en">Describe the mission</span>
+            <span data-lang="he">מתארים את המשימה</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-number">2</div>
+          <div class="flow-step-content">
+            <i class="ph-bold ph-magic-wand" aria-hidden="true"></i>
+            <span data-lang="en">ORBIT generates prompts</span>
+            <span data-lang="he">ORBIT מייצר פרומפטים</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-number">3</div>
+          <div class="flow-step-content">
+            <i class="ph-bold ph-clipboard-text" aria-hidden="true"></i>
+            <span data-lang="en">Carry them between agents</span>
+            <span data-lang="he">מעבירים אותם בין סוכנים</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-number">4</div>
+          <div class="flow-step-content">
+            <i class="ph-bold ph-package" aria-hidden="true"></i>
+            <span data-lang="en">Structured artifacts flow back</span>
+            <span data-lang="he">ארטיפקטים מובנים זורמים בחזרה</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="install-block reveal" style="max-width: 700px; margin: var(--space-2xl) auto 0;">
+        <div data-lang="en">
+          <h3 style="margin-bottom: var(--space-md); text-align: center;">Example: Competitive Pricing Analysis with Boomerang (B)</h3>
+          <p style="margin-bottom: var(--space-lg); text-align: center; color: var(--star-dim);">Say you need to research your competitors' pricing strategies before a board meeting.</p>
+          <div class="install-step">
+            <div class="install-step-number">1</div>
+            <div>
+              <h4>Describe the mission to ORBIT</h4>
+              <p>Open Claude Code and run <code>/orbit:boomerang</code>. Describe the mission: "I need a competitive analysis of pricing models for developer tools in the AI space — specifically Cursor, Windsurf, and Copilot." ORBIT asks a few clarifying questions, then generates two prompts.</p>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">2</div>
+            <div>
+              <h4>Carry Prompt A to your research tools</h4>
+              <p>Prompt A contains specific search queries, optimized for the tools you'll use. Paste it into Perplexity, or GPT with web search, or whatever you prefer. The prompt tells the tool exactly what to look for, what format to return results in, and what to ignore. Collect the raw findings.</p>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">3</div>
+            <div>
+              <h4>Bring the results back with Prompt B</h4>
+              <p>Paste the raw research results back into Claude Code along with Prompt B. This prompt is an analysis template — it tells the agent how to process, compare, and structure the findings. The output is a clean, structured competitive analysis. Not a wall of text — a document with clear categories, comparisons, and takeaways.</p>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">4</div>
+            <div>
+              <h4>Route the output wherever it needs to go</h4>
+              <p>Maybe the analysis feeds into a presentation (use <code>/orbit:interchange</code> to hand it off to a presentation-building agent). Maybe it feeds into a larger strategy document (use <code>/orbit:orchestrate</code> to coordinate the full project). The output is always structured enough to become input for the next step.</p>
+            </div>
+          </div>
+          <p style="margin-top: var(--space-lg); text-align: center; color: var(--star-dim); font-style: italic;">That's the loop. Describe the mission, ORBIT generates the prompts, carry them between agents, structured artifacts flow back. The human in the middle is the router — the agents do the heavy lifting.</p>
+        </div>
+        <div data-lang="he">
+          <h3 style="margin-bottom: var(--space-md); text-align: center;">דוגמה: ניתוח תמחור תחרותי עם Boomerang (B)</h3>
+          <p style="margin-bottom: var(--space-lg); text-align: center; color: var(--star-dim);">נניח שצריך לחקור אסטרטגיות תמחור של מתחרים לפני ישיבת דירקטוריון.</p>
+          <div class="install-step">
+            <div class="install-step-number">1</div>
+            <div>
+              <h4>תיאור המשימה ל-ORBIT</h4>
+              <p>פותחים את Claude Code ומריצים <code>/orbit:boomerang</code>. מתארים את המשימה: "צריך ניתוח תחרותי של מודלי תמחור לכלי פיתוח בעולם ה-AI — ספציפית Cursor, Windsurf ו-Copilot." ORBIT שואל כמה שאלות הבהרה, ואז מייצר שני פרומפטים.</p>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">2</div>
+            <div>
+              <h4>העברת פרומפט A לכלי המחקר</h4>
+              <p>פרומפט A מכיל שאילתות חיפוש ספציפיות, מותאמות לכלים הרלוונטיים. מדביקים אותו ב-Perplexity, או ב-GPT עם חיפוש אינטרנט, או בכל כלי אחר. הפרומפט אומר לכלי בדיוק מה לחפש, באיזה פורמט להחזיר תוצאות, וממה להתעלם. אוספים את הממצאים הגולמיים.</p>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">3</div>
+            <div>
+              <h4>חזרה עם התוצאות ופרומפט B</h4>
+              <p>מדביקים את תוצאות המחקר הגולמיות חזרה ב-Claude Code יחד עם פרומפט B. הפרומפט הזה הוא תבנית ניתוח — הוא אומר לסוכן איך לעבד, להשוות ולמבנה את הממצאים. הפלט הוא ניתוח תחרותי נקי ומובנה. לא קיר של טקסט — מסמך עם קטגוריות ברורות, השוואות ומסקנות.</p>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">4</div>
+            <div>
+              <h4>ניתוב הפלט להמשך</h4>
+              <p>אולי הניתוח מזין מצגת (להשתמש ב-<code>/orbit:interchange</code> כדי להעביר אותו לסוכן שבונה מצגות). אולי הוא מזין מסמך אסטרטגיה רחב יותר (להשתמש ב-<code>/orbit:orchestrate</code> כדי לתאם את הפרויקט המלא). הפלט תמיד מובנה מספיק כדי להפוך לאינפוט של הצעד הבא.</p>
+            </div>
+          </div>
+          <p style="margin-top: var(--space-lg); text-align: center; color: var(--star-dim); font-style: italic;">זה הלופ. מתארים את המשימה, ORBIT מייצר את הפרומפטים, מעבירים אותם בין סוכנים, וארטיפקטים מובנים זורמים בחזרה. האדם באמצע הוא הנתב — הסוכנים עושים את העבודה הכבדה.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INSTALL ========== -->
+  <section id="install" class="install-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">
+          <span data-lang="en">Installation</span>
+          <span data-lang="he">התקנה</span>
+        </span>
+        <h2 data-lang="en">Get ORBIT Running in 2 Minutes</h2>
+        <h2 data-lang="he">ORBIT עובד תוך 2 דקות</h2>
+        <p data-lang="en">Install as a Claude Code plugin. All skills become available as slash commands.</p>
+        <p data-lang="he">מותקן כפלאגין של Claude Code. כל הכלים הופכים זמינים כפקודות סלאש.</p>
+      </div>
+
+      <img src="images/orbit-install.png" alt="Terminal in space — ORBIT plugin installation" class="section-image reveal" loading="lazy">
+
+      <div class="install-block reveal">
+        <div data-lang="en">
+          <div class="install-step">
+            <div class="install-step-number">1</div>
+            <div>
+              <h4>Install the plugin</h4>
+              <p>In Claude Code, run:</p>
+              <div class="code-block">
+                <button class="copy-btn"><i class="ph-bold ph-copy" aria-hidden="true"></i> Copy</button>
+                <code>/install-plugin github:benakiva/orbit-plugin</code>
+              </div>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">2</div>
+            <div>
+              <h4>Verify installation</h4>
+              <p>Run <code>/orbit:help</code> to see all available commands. You should see all 5 atomic patterns and 2 compound workflows.</p>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">3</div>
+            <div>
+              <h4>Run your first pattern</h4>
+              <p>Try <code>/orbit:boomerang</code> with a simple research task. Follow the prompts, carry the artifacts, see the results.</p>
+            </div>
+          </div>
+        </div>
+        <div data-lang="he">
+          <div class="install-step">
+            <div class="install-step-number">1</div>
+            <div>
+              <h4>התקנת הפלאגין</h4>
+              <p>ב-Claude Code, להריץ:</p>
+              <div class="code-block">
+                <button class="copy-btn"><i class="ph-bold ph-copy" aria-hidden="true"></i> Copy</button>
+                <code>/install-plugin github:benakiva/orbit-plugin</code>
+              </div>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">2</div>
+            <div>
+              <h4>אימות התקנה</h4>
+              <p>להריץ <code>/orbit:help</code> כדי לראות את כל הפקודות הזמינות. צריכים לראות את כל 5 התבניות האטומיות ו-2 הפייפליינים המורכבים.</p>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-number">3</div>
+            <div>
+              <h4>הרצה ראשונה</h4>
+              <p>לנסות <code>/orbit:boomerang</code> עם משימת מחקר פשוטה. לעקוב אחרי הפרומפטים, להעביר את הארטיפקטים, לראות תוצאות.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slash Commands Reference -->
+      <div class="install-block reveal" style="margin-top: var(--space-lg);">
+        <h4 style="margin-bottom: var(--space-md);">
+          <i class="ph-bold ph-terminal-window" style="color: var(--orbit-cyan); margin-right: 8px;" aria-hidden="true"></i>
+          <span data-lang="en">Slash Commands</span>
+          <span data-lang="he">פקודות Slash</span>
+        </h4>
+        <table class="commands-table" data-lang="en">
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>What it does</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>/orbit:orchestrate</td><td>Set up a planning agent for multi-step projects</td></tr>
+            <tr><td>/orbit:recon</td><td>Generate observation prompts for a specific target</td></tr>
+            <tr><td>/orbit:boomerang</td><td>Generate research + analysis prompt pair</td></tr>
+            <tr><td>/orbit:interchange</td><td>Generate agent-to-agent handoff prompts</td></tr>
+            <tr><td>/orbit:transfer</td><td>Generate a full state capture for session continuity</td></tr>
+            <tr><td>/orbit:kb-builder</td><td>Run the 4-stage research-to-knowledge-base pipeline</td></tr>
+            <tr><td>/orbit:design-pipeline</td><td>Run the 10-stage design research pipeline</td></tr>
+            <tr><td>/orbit:help</td><td>Show all commands and quick usage guide</td></tr>
+          </tbody>
+        </table>
+        <table class="commands-table" data-lang="he">
+          <thead>
+            <tr>
+              <th>פקודה</th>
+              <th>מה היא עושה</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>/orbit:orchestrate</td><td>הקמת סוכן תכנון לפרויקטים רב-שלביים</td></tr>
+            <tr><td>/orbit:recon</td><td>יצירת פרומפטי תצפית ליעד ספציפי</td></tr>
+            <tr><td>/orbit:boomerang</td><td>יצירת זוג פרומפטים מחקר + ניתוח</td></tr>
+            <tr><td>/orbit:interchange</td><td>יצירת פרומפטי העברה בין סוכנים</td></tr>
+            <tr><td>/orbit:transfer</td><td>יצירת לכידת מצב מלאה להמשכיות סשן</td></tr>
+            <tr><td>/orbit:kb-builder</td><td>הרצת פייפליין מחקר-למאגר-ידע ב-4 שלבים</td></tr>
+            <tr><td>/orbit:design-pipeline</td><td>הרצת פייפליין מחקר עיצובי ב-10 שלבים</td></tr>
+            <tr><td>/orbit:help</td><td>הצגת כל הפקודות ומדריך שימוש מהיר</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Alternative: local install -->
+      <div class="install-block reveal" style="margin-top: var(--space-lg);">
+        <div data-lang="en">
+          <h4 style="margin-bottom: var(--space-md);">Local Development</h4>
+          <p style="margin-bottom: var(--space-md);">Clone the repo and install locally to customize patterns:</p>
+          <div class="code-block">
+            <button class="copy-btn"><i class="ph-bold ph-copy" aria-hidden="true"></i> Copy</button>
+            <code>git clone https://github.com/benakiva/orbit-plugin.git
+cd orbit-plugin
+# Follow local setup instructions in CONTRIBUTING.md</code>
+          </div>
+        </div>
+        <div data-lang="he">
+          <h4 style="margin-bottom: var(--space-md);">פיתוח מקומי</h4>
+          <p style="margin-bottom: var(--space-md);">לשבט את הריפו ולהתקין מקומית כדי להתאים אישית את התבניות:</p>
+          <div class="code-block">
+            <button class="copy-btn"><i class="ph-bold ph-copy" aria-hidden="true"></i> Copy</button>
+            <code>git clone https://github.com/benakiva/orbit-plugin.git
+cd orbit-plugin
+# לעקוב אחרי הוראות ההתקנה ב-CONTRIBUTING.md</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHEN TO USE WHAT ========== -->
+  <section id="when-to-use">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">
+          <span data-lang="en">Quick Reference</span>
+          <span data-lang="he">מדריך מהיר</span>
+        </span>
+        <h2 data-lang="en">When to Use What</h2>
+        <h2 data-lang="he">מתי להשתמש במה</h2>
+      </div>
+
+      <div class="install-block reveal" style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;" data-lang="en">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <th style="text-align: left; padding: var(--space-md); color: var(--star-dim); font-weight: 500;">Situation</th>
+              <th style="text-align: left; padding: var(--space-md); color: var(--star-dim); font-weight: 500;">Use This</th>
+              <th style="text-align: left; padding: var(--space-md); color: var(--star-dim); font-weight: 500;">Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-list-checks" style="color: var(--orbit-cyan); margin-right: 8px;" aria-hidden="true"></i>Multi-step project with 3+ agents involved</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: var(--orbit-cyan-dim); color: var(--orbit-cyan);">Orchestrate</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">You need a planner to coordinate the sequence and track progress</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-binoculars" style="color: var(--orbit-purple); margin-right: 8px;" aria-hidden="true"></i>Need to analyze a codebase or repo you have access to</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: var(--orbit-purple-dim); color: var(--orbit-purple);">Recon</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">Structured observation with a defined report format</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-arrows-counter-clockwise" style="color: var(--orbit-gold); margin-right: 8px;" aria-hidden="true"></i>Research a topic using multiple AI tools</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: var(--orbit-gold-dim); color: var(--orbit-gold);">Boomerang</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">Generates both the search queries and the analysis framework</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-swap" style="color: #10b981; margin-right: 8px;" aria-hidden="true"></i>One agent finished work, another needs to continue it</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: rgba(16,185,129,0.15); color: #10b981;">Interchange</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">Clean handoff with zero context loss</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-floppy-disk" style="color: #f43f5e; margin-right: 8px;" aria-hidden="true"></i>Conversation getting too long, need a fresh start</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: rgba(244,63,94,0.15); color: #f43f5e;">Transfer</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">Full state capture so you lose nothing</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-books" style="color: var(--orbit-cyan); margin-right: 8px;" aria-hidden="true"></i>Need to build a comprehensive knowledge base from scratch</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: linear-gradient(135deg, var(--orbit-cyan-dim), var(--orbit-purple-dim)); color: var(--orbit-cyan);">KB Builder</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">End-to-end pipeline from scattered research to organized document</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-palette" style="color: var(--orbit-cyan); margin-right: 8px;" aria-hidden="true"></i>Designing a product UI/UX with research backing</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: linear-gradient(135deg, var(--orbit-cyan-dim), var(--orbit-purple-dim)); color: var(--orbit-cyan);">Design Pipeline</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">Full 10-stage process from brief to production design system</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-question" style="color: var(--star-dim); margin-right: 8px;" aria-hidden="true"></i>Not sure which pattern to use</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: var(--orbit-gold-dim); color: var(--orbit-gold);">Boomerang</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">Research first, then decide your next move based on findings</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;" data-lang="he">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <th style="text-align: right; padding: var(--space-md); color: var(--star-dim); font-weight: 500;">מצב</th>
+              <th style="text-align: right; padding: var(--space-md); color: var(--star-dim); font-weight: 500;">תבנית מתאימה</th>
+              <th style="text-align: right; padding: var(--space-md); color: var(--star-dim); font-weight: 500;">למה</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-list-checks" style="color: var(--orbit-cyan); margin-left: 8px;" aria-hidden="true"></i>פרויקט רב-שלבי עם 3+ סוכנים מעורבים</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: var(--orbit-cyan-dim); color: var(--orbit-cyan);">Orchestrate</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">צריך מתכנן שיתאם את הרצף ויעקוב אחרי התקדמות</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-binoculars" style="color: var(--orbit-purple); margin-left: 8px;" aria-hidden="true"></i>צריך לנתח קודבייס או ריפו שיש אליו גישה</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: var(--orbit-purple-dim); color: var(--orbit-purple);">Recon</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">תצפית מובנית עם פורמט דיווח מוגדר</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-arrows-counter-clockwise" style="color: var(--orbit-gold); margin-left: 8px;" aria-hidden="true"></i>לחקור נושא באמצעות מספר כלי AI</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: var(--orbit-gold-dim); color: var(--orbit-gold);">Boomerang</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">מייצר גם את שאילתות החיפוש וגם את מסגרת הניתוח</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-swap" style="color: #10b981; margin-left: 8px;" aria-hidden="true"></i>סוכן אחד סיים עבודה, אחר צריך להמשיך אותה</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: rgba(16,185,129,0.15); color: #10b981;">Interchange</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">העברה נקייה עם אפס אובדן קונטקסט</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-floppy-disk" style="color: #f43f5e; margin-left: 8px;" aria-hidden="true"></i>שיחה מתארכת מידי, צריך התחלה נקייה</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: rgba(244,63,94,0.15); color: #f43f5e;">Transfer</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">לכידת מצב מלאה כדי שלא לאבד כלום</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-books" style="color: var(--orbit-cyan); margin-left: 8px;" aria-hidden="true"></i>צריך לבנות מאגר ידע מקיף מאפס</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: linear-gradient(135deg, var(--orbit-cyan-dim), var(--orbit-purple-dim)); color: var(--orbit-cyan);">KB Builder</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">פייפליין מקצה לקצה ממחקר מפוזר למסמך מסודר</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--space-border);">
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-palette" style="color: var(--orbit-cyan); margin-left: 8px;" aria-hidden="true"></i>עיצוב UI/UX למוצר עם גיבוי מחקרי</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: linear-gradient(135deg, var(--orbit-cyan-dim), var(--orbit-purple-dim)); color: var(--orbit-cyan);">Design Pipeline</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">תהליך מלא ב-10 שלבים מבריף ועד מערכת עיצוב לפרודקשן</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--space-md); color: var(--star-white);"><i class="ph-bold ph-question" style="color: var(--star-dim); margin-left: 8px;" aria-hidden="true"></i>לא ברור איזו תבנית מתאימה</td>
+              <td style="padding: var(--space-md);"><span class="skill-tag" style="background: var(--orbit-gold-dim); color: var(--orbit-gold);">Boomerang</span></td>
+              <td style="padding: var(--space-md); color: var(--star-dim);">מחקר קודם, ואז להחליט מה הצעד הבא לפי הממצאים</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">
+          <span data-lang="en">FAQ</span>
+          <span data-lang="he">שאלות נפוצות</span>
+        </span>
+        <h2 data-lang="en">Frequently Asked Questions</h2>
+        <h2 data-lang="he">שאלות נפוצות</h2>
+      </div>
+      <div class="faq-list">
+
+        <div class="install-block reveal" style="margin-bottom: var(--space-lg);">
+          <details>
+            <summary class="faq-summary">
+              <span data-lang="en">Do I need to be technical to use ORBIT?</span>
+              <span data-lang="he">צריך להיות טכניים כדי להשתמש ב-ORBIT?</span>
+            </summary>
+            <div style="padding: 0 var(--space-md) var(--space-md);">
+              <p data-lang="en" style="color: var(--star-dim); line-height: 1.6;">You need to be comfortable working with AI tools and copy-pasting between them. If you're already using Claude, ChatGPT, or similar tools regularly, you have all the skills you need. ORBIT is installed through Claude Code, which is a terminal-based tool, so basic comfort with a command line helps. But you don't need to be a developer — the prompts ORBIT generates are plain language, not code.</p>
+              <p data-lang="he" style="color: var(--star-dim); line-height: 1.6;">צריך להרגיש בנוח לעבוד עם כלי AI ולעשות copy-paste ביניהם. מי שכבר משתמש ב-Claude, ChatGPT, או כלים דומים באופן קבוע — יש את כל מה שצריך. ORBIT מותקן דרך Claude Code, שזה כלי מבוסס טרמינל, אז נוחות בסיסית עם command line עוזרת. אבל לא חייבים להיות מפתחים — הפרומפטים ש-ORBIT מייצר הם בשפה טבעית, לא קוד.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="install-block reveal" style="margin-bottom: var(--space-lg);">
+          <details>
+            <summary class="faq-summary">
+              <span data-lang="en">Can I use ORBIT with AI tools other than Claude?</span>
+              <span data-lang="he">אפשר להשתמש ב-ORBIT עם כלי AI אחרים מלבד Claude?</span>
+            </summary>
+            <div style="padding: 0 var(--space-md) var(--space-md);">
+              <p data-lang="en" style="color: var(--star-dim); line-height: 1.6;">That's actually the whole point. ORBIT is built on the idea that you route work between different AI tools. Boomerang, for example, generates prompts specifically designed for external tools like Perplexity, GPT, or Gemini. The plugin itself runs in Claude Code, but the prompts it generates are tool-agnostic — they work wherever you paste them.</p>
+              <p data-lang="he" style="color: var(--star-dim); line-height: 1.6;">זו בעצם כל הפואנטה. ORBIT בנוי על הרעיון של ניתוב עבודה בין כלי AI שונים. Boomerang, למשל, מייצר פרומפטים שמותאמים ספציפית לכלים חיצוניים כמו Perplexity, GPT, או Gemini. הפלאגין עצמו רץ ב-Claude Code, אבל הפרומפטים שהוא מייצר הם tool-agnostic — הם עובדים בכל מקום שמדביקים אותם.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="install-block reveal" style="margin-bottom: var(--space-lg);">
+          <details>
+            <summary class="faq-summary">
+              <span data-lang="en">What's the difference between Interchange and Transfer?</span>
+              <span data-lang="he">מה ההבדל בין Interchange ל-Transfer?</span>
+            </summary>
+            <div style="padding: 0 var(--space-md) var(--space-md);">
+              <p data-lang="en" style="color: var(--star-dim); line-height: 1.6;">Interchange is for handoffs between agents working on the same project — Agent A finishes a task and Agent B picks up a related task. The context flows forward. Transfer is for continuity within a single agent's work — the conversation got too long, so you save state and start fresh. Interchange moves work sideways (between agents). Transfer moves work forward (across sessions).</p>
+              <p data-lang="he" style="color: var(--star-dim); line-height: 1.6;">Interchange מיועד להעברות בין סוכנים שעובדים על אותו פרויקט — סוכן A סיים משימה וסוכן B מרים משימה קשורה. הקונטקסט זורם קדימה. Transfer מיועד להמשכיות בתוך עבודה של סוכן בודד — השיחה התארכה מידי, אז שומרים מצב ומתחילים מחדש. Interchange מזיז עבודה הצידה (בין סוכנים). Transfer מזיז עבודה קדימה (בין סשנים).</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="install-block reveal" style="margin-bottom: var(--space-lg);">
+          <details>
+            <summary class="faq-summary">
+              <span data-lang="en">How do compound workflows relate to atomic patterns?</span>
+              <span data-lang="he">איך פייפליינים מורכבים מתחברים לתבניות האטומיות?</span>
+            </summary>
+            <div style="padding: 0 var(--space-md) var(--space-md);">
+              <p data-lang="en" style="color: var(--star-dim); line-height: 1.6;">Compound workflows are combinations of atomic patterns wired together. KB Builder combines Boomerang (research) with Orchestrate (coordinated writing). Design Pipeline adds more stages on top. You can also create your own compound workflows by chaining atomic patterns — the 5 patterns are building blocks.</p>
+              <p data-lang="he" style="color: var(--star-dim); line-height: 1.6;">פייפליינים מורכבים הם שילובים של תבניות אטומיות מחוברות יחד. KB Builder משלב Boomerang (מחקר) עם Orchestrate (כתיבה מתואמת). Design Pipeline מוסיף עוד שלבים מעל. אפשר גם ליצור פייפליינים מורכבים עצמאיים על ידי שרשור תבניות אטומיות — 5 התבניות הן אבני בניין.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="install-block reveal" style="margin-bottom: var(--space-lg);">
+          <details>
+            <summary class="faq-summary">
+              <span data-lang="en">Can I customize the generated prompts?</span>
+              <span data-lang="he">אפשר להתאים אישית את הפרומפטים שנוצרים?</span>
+            </summary>
+            <div style="padding: 0 var(--space-md) var(--space-md);">
+              <p data-lang="en" style="color: var(--star-dim); line-height: 1.6;">Yes, and you should. The prompts ORBIT generates are starting points — they're well-structured and complete, but you know your context best. Feel free to edit, extend, or trim them before pasting into the receiving agent. The structure is the value — you can always adjust the specifics.</p>
+              <p data-lang="he" style="color: var(--star-dim); line-height: 1.6;">כן, ואפילו רצוי. הפרומפטים ש-ORBIT מייצר הם נקודות פתיחה — מובנים היטב ומלאים, אבל מי שעובד עם הכלי מכיר את הקונטקסט הכי טוב. אפשר לערוך, להרחיב, או לקצר אותם לפני שמדביקים בסוכן המקבל. המבנה הוא הערך — תמיד אפשר לכוונן את הפרטים.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="install-block reveal" style="margin-bottom: var(--space-lg);">
+          <details>
+            <summary class="faq-summary">
+              <span data-lang="en">What happens if a step fails or returns bad results?</span>
+              <span data-lang="he">מה קורה אם שלב נכשל או מחזיר תוצאות גרועות?</span>
+            </summary>
+            <div style="padding: 0 var(--space-md) var(--space-md);">
+              <p data-lang="en" style="color: var(--star-dim); line-height: 1.6;">Iterate. If Prompt A in Boomerang returns low-quality search results, refine the queries and run them again. If an Orchestrate plan doesn't fit your actual needs, feed the status back and let the planner adjust. ORBIT is designed for loops, not straight lines. The human in the middle is the quality control layer.</p>
+              <p data-lang="he" style="color: var(--star-dim); line-height: 1.6;">עושים איטרציה. אם פרומפט A ב-Boomerang מחזיר תוצאות חיפוש באיכות נמוכה, משפרים את השאילתות ומריצים שוב. אם תוכנית של Orchestrate לא מתאימה לצרכים, מזינים את הסטטוס בחזרה ונותנים למתכנן להתאים. ORBIT מעוצב ללופים, לא לקווים ישרים. האדם באמצע הוא שכבת בקרת האיכות.</p>
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/benakiva/orbit-plugin" class="footer-link">
+          <i class="ph-bold ph-github-logo" aria-hidden="true"></i>
+          <span>GitHub</span>
+        </a>
+        <a href="#install" class="footer-link">
+          <i class="ph-bold ph-download" aria-hidden="true"></i>
+          <span data-lang="en">Install</span>
+          <span data-lang="he">התקנה</span>
+        </a>
+        <a href="#skills" class="footer-link">
+          <i class="ph-bold ph-compass" aria-hidden="true"></i>
+          <span data-lang="en">Skills</span>
+          <span data-lang="he">כלים</span>
+        </a>
+      </div>
+      <p data-lang="en">
+        <i class="ph-bold ph-lock-simple" aria-hidden="true"></i>
+        ORBIT Plugin by <a href="https://github.com/benakiva">Ben Akiva</a>. MIT License.
+      </p>
+      <p data-lang="he">
+        <i class="ph-bold ph-lock-simple" aria-hidden="true"></i>
+        ORBIT Plugin מאת <a href="https://github.com/benakiva">בן עקיבא</a>. רישיון MIT.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
