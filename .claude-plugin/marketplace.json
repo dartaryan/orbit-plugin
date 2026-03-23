@@ -1,8 +1,5 @@
 {
   "name": "orbit-plugin",
-  "metadata": {
-    "description": "5 atomic patterns for routing work between AI agents"
-  },
   "owner": {
     "name": "Ben Akiva",
     "email": "benakiva1991@gmail.com"
@@ -10,7 +7,7 @@
   "plugins": [
     {
       "name": "orbit",
-      "source": "./plugins/orbit",
+      "source": "./",
       "version": "1.0.0",
       "description": "5 atomic patterns for routing work between AI agents — Recon, Orchestrate, Boomerang, Interchange, Transfer.",
       "category": "productivity",

@@ -4,5 +4,7 @@
   "description": "5 atomic patterns for routing work between AI agents — Recon, Orchestrate, Boomerang, Interchange, Transfer.",
   "author": {
     "name": "Ben Akiva"
-  }
+  },
+  "keywords": ["agents", "routing", "orchestration", "workflow", "patterns"],
+  "skills": "./skills/"
 }
