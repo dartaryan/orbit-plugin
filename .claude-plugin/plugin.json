@@ -1,10 +1,5 @@
 {
   "name": "orbit",
   "version": "1.0.0",
-  "description": "5 atomic patterns for routing work between AI agents — Recon, Orchestrate, Boomerang, Interchange, Transfer.",
-  "author": {
-    "name": "Ben Akiva"
-  },
-  "keywords": ["agents", "routing", "orchestration", "workflow", "patterns"],
-  "skills": "./skills/"
+  "description": "5 atomic patterns for routing work between AI agents — Recon, Orchestrate, Boomerang, Interchange, Transfer."
 }
