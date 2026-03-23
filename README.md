@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://benakiva.github.io/orbit-plugin">Landing Page</a> ·
+  <a href="https://dartaryan.github.io/orbit-plugin">Landing Page</a> ·
   <a href="#installation">Installation</a> ·
   <a href="#the-5-patterns">Patterns</a> ·
   <a href="#how-it-works">How It Works</a> ·
