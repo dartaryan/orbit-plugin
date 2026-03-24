@@ -48,9 +48,19 @@ Plus **2 compound workflows**:
 
 ## Installation
 
+### Option 1 — CLI (recommended)
+
 ```
 /install-plugin github:benakiva/orbit-plugin
 ```
+
+### Option 2 — Manual Download
+
+1. **[Download orbit-plugin.zip](https://github.com/benakiva/orbit-plugin/releases/latest/download/orbit-plugin.zip)**
+2. Extract and copy the contents into your project's `.claude/plugins/orbit/` directory
+3. Restart Claude Code
+
+---
 
 Verify with `/orbit:help` — you should see all 5 atomic patterns and 2 compound workflows.
 

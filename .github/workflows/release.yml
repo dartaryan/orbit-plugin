@@ -1,0 +1,42 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Package plugin files
+        run: |
+          mkdir -p orbit-plugin/.claude-plugin
+          cp -r .claude-plugin/* orbit-plugin/.claude-plugin/
+          cp -r skills orbit-plugin/skills
+          cp LICENSE orbit-plugin/
+          cd orbit-plugin && zip -r ../orbit-plugin.zip . && cd ..
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: orbit-plugin.zip
+          generate_release_notes: true
+          body: |
+            ## Download & Install
+
+            **Option 1 — CLI (recommended)**
+            ```
+            /install-plugin github:benakiva/orbit-plugin
+            ```
+
+            **Option 2 — Manual download**
+            1. Download `orbit-plugin.zip` below
+            2. Extract into your project's `.claude/plugins/` directory
+            3. Restart Claude Code
+            4. Run `/orbit:help` to verify

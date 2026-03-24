@@ -50,9 +50,19 @@
 
 ## התקנה
 
+### אופציה 1 — CLI (מומלץ)
+
 ```
 /install-plugin github:benakiva/orbit-plugin
 ```
+
+### אופציה 2 — הורדה ידנית
+
+1. **[הורדת orbit-plugin.zip](https://github.com/benakiva/orbit-plugin/releases/latest/download/orbit-plugin.zip)**
+2. לחלץ ולהעתיק את התוכן לתיקייה `.claude/plugins/orbit/` בפרויקט
+3. להפעיל מחדש את Claude Code
+
+---
 
 לאמת עם `/orbit:help` — צריכים לראות את כל 5 התבניות האטומיות ו-2 הפייפליינים המורכבים.
 
