@@ -56,57 +56,54 @@ Once you have the answers, generate both prompts below.
 
 ### Prompt A — Search Prompt
 
-Generate a self-contained search prompt that includes:
+Generate a self-contained research plan prompt ready for direct paste into Deep Research tools (ChatGPT Deep Research, Perplexity, Gemini Deep Research). The prompt must be a precise, systematic research plan designed to extract maximum value from a single Deep Research run.
 
-**1. SEARCH OBJECTIVE**
+**Critical: Think carefully about strategy.** The most important creative decision is choosing the right research strategy for the topic type. Don't default to a generic approach. Examples:
 
-A clear, one-paragraph statement of what information is needed and why. Give enough context so the searching agent or tool can make relevance judgments.
+- **Comparative research** (e.g., "best X for Y") → Tournament strategy: define criteria, split into pairs, compare, filter winners
+- **Market research** (e.g., "market size for X") → Funnel strategy: start broad (global data), narrow to segment, validate with multiple sources
+- **Technical investigation** (e.g., "how does X work") → Layered strategy: start with overview, then dive into each component, cross-reference
+- **Sourcing/procurement** (e.g., "find suppliers for X") → Scout strategy: identify candidates, filter by criteria, deep-dive top results
+- **Trend analysis** (e.g., "what's happening with X") → Timeline strategy: map historical → current → projected, identify inflection points
 
-**2. SEARCH QUERIES**
+Adapt and invent strategies as needed — these are just starting points.
 
-Multiple query variations to maximize coverage. Structure as:
+The generated research plan MUST include all six sections below. Adapt the content and depth of each section to the specific research topic.
 
-- **Primary queries** — the direct questions, phrased for best results
-- **Alternative phrasings** — different angles on the same question (synonyms, related terms, broader/narrower scope)
-- **Negative filters** — what to exclude from results (outdated info, irrelevant domains, specific noise patterns)
+**1. OPENING STATEMENT**
+- Precise explanation of the research goal
+- Use quality activation words: "Ultimate", "Comprehensive", "most thorough", "exhaustive"
+- Set the scope and boundaries clearly
 
-If different queries work better on different tools, group them by tool:
+**2. KEY RESEARCH OBJECTIVES**
+- What exact questions should the research answer? (list 3-7 specific questions)
+- What type of information is needed? (quantitative data, qualitative analysis, comparisons, recommendations)
 
-```
-FOR PERPLEXITY / WEB SEARCH:
-[queries optimized for web search]
+**3. RESEARCH METHODS**
+- How to collect and analyze information?
+- Which specific strategy to use? (choose and describe the most efficient approach for THIS topic)
+- Break the strategy into clear sequential steps the AI can follow in a single operation
 
-FOR AI MODELS (Gemini, GPT, Claude):
-[queries optimized for knowledge-based answers]
+**4. EVALUATION CRITERIA**
+- Metrics, benchmarks, or qualitative considerations for comparison
+- Success or feasibility criteria
+- How to weigh conflicting information
 
-FOR SPECIALIZED SOURCES:
-[queries for specific databases, forums, or repositories]
-```
+**5. EXPECTED OUTPUT**
+- What results should appear in the final report?
+- What structure should the report follow?
+- Next steps after the research (recommendations for what to do with the output)
 
-**3. SOURCE PRIORITIES**
+**6. CUSTOM INSTRUCTIONS**
+- Tailored quality instructions specific to the topic (3-5 instructions)
+- Examples: academic depth, recency requirements, citation standards, format preferences
 
-Which types of sources to prioritize and which to deprioritize:
-
-- Preferred sources (official docs, peer-reviewed, primary sources, etc.)
-- Acceptable sources (blog posts, forums, tutorials, etc.)
-- Sources to avoid (outdated, known-unreliable, paywalled, etc.)
-
-**4. WHAT TO CAPTURE**
-
-For each result, what to save:
-
-- The specific data points, facts, or answers found
-- Source URL or reference
-- Date of the information (to assess freshness)
-- Any caveats, contradictions, or confidence qualifiers mentioned
-
-**5. SCOPE BOUNDARIES**
-
-What counts as "enough" — when to stop searching:
-
-- Minimum number of sources to consult
-- When diminishing returns kick in
-- Whether exhaustive coverage or quick validation is the goal
+**Quality guidelines:**
+- The plan should be systematic and actionable — no fluff, no filler
+- Include only actions and sources a language model can execute in a single Deep Research run
+- The final prompt should be self-contained — no external context needed
+- Target 95% success rate: the plan should be clear enough that any Deep Research tool produces thorough, accurate results
+- Keep the plan focused — typically 300-600 words. Long enough to be precise, short enough to not dilute focus
 
 ### Prompt B — Analysis Prompt
 

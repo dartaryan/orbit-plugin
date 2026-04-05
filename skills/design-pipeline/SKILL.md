@@ -74,61 +74,54 @@ Once you have the answers, generate all stage prompts below.
 
 ### Stage 0 — Research Plan Generation (Boomerang B)
 
-Generate a prompt that takes the PRD + Brief and produces a comprehensive design research plan. The prompt must be self-contained — the agent running it has ZERO context about the project beyond what is in the PRD and brief.
+Generate a prompt that takes the PRD + Brief and produces a comprehensive design research plan. The prompt must be self-contained — the agent running it has ZERO context about the project beyond what is in the PRD and brief. The prompt must be a precise, systematic research plan designed to extract maximum value from a single Deep Research run.
 
-The prompt must instruct the agent to produce a research plan covering all of the following categories:
+**Critical: Think carefully about strategy.** For design research, the most important creative decision is choosing the right research strategy for the product type. Don't default to a generic approach. Examples:
 
-**1. SIMILAR APPS WORLDWIDE**
-- Apps solving the same or adjacent problem
-- 3-5 search query variations targeting different angles
-- Geographic diversity — not just US/English-language apps
+- **Competitive design analysis** (e.g., "how do similar apps look") → Tournament strategy: identify competitors, define visual criteria, compare in pairs, filter winners
+- **Design system research** (e.g., "best practices for dashboards") → Layered strategy: start with established patterns, then dive into each component category, cross-reference across industries
+- **Visual identity exploration** (e.g., "color and typography for fintech") → Funnel strategy: start broad (design trends), narrow to category, validate with successful examples
+- **UX pattern research** (e.g., "onboarding flows that convert") → Scout strategy: identify high-performing examples, filter by metrics, deep-dive top results
+- **Design trend analysis** (e.g., "where is SaaS design heading") → Timeline strategy: map historical → current → projected, identify inflection points
 
-**2. COMPETITOR ANALYSIS**
-- Direct competitors and their visual language
-- Indirect competitors targeting the same audience
-- What design patterns competitors share (and why)
+Adapt and invent strategies as needed — these are just starting points.
 
-**3. DESIGN PATTERNS AND UI CONVENTIONS**
-- Established UI patterns for this product category
-- Emerging patterns gaining traction
-- Patterns from adjacent categories worth borrowing
+The generated research plan MUST include all six sections below. Adapt the content and depth of each section to the specific product and its design needs.
 
-**4. COLOR PALETTES AND VISUAL IDENTITY**
-- Color trends in this product category
-- Psychology-backed color choices for the product's goals
-- Palette structures (primary, accent, neutral, semantic)
+**1. OPENING STATEMENT**
+- Precise explanation of the design research goal
+- Use quality activation words: "Ultimate", "Comprehensive", "most thorough", "exhaustive"
+- Set the scope and boundaries clearly — product type, target audience, design maturity
 
-**5. TYPOGRAPHY**
-- Type pairings used in high-quality apps of this type
-- Readability considerations for the product's content type
-- Type scale and hierarchy patterns
+**2. KEY RESEARCH OBJECTIVES**
+- What exact design questions should the research answer? (list 3-7 specific questions)
+- What type of information is needed? (visual references, component patterns, color systems, typography pairings, layout structures, interaction models, accessibility patterns)
 
-**6. MICRO-INTERACTIONS AND ANIMATIONS**
-- Interaction patterns that improve UX in this category
-- Transition styles, loading states, feedback animations
-- Motion design principles relevant to the product
+**3. RESEARCH METHODS**
+- How to collect and analyze design information?
+- Which specific strategy to use? (choose and describe the most efficient approach for THIS product's design needs)
+- Break the strategy into clear sequential steps the AI can follow in a single operation
 
-**7. VISUAL HOOKS AND CONVERSION-OPTIMIZED LAYOUTS**
-- Layout patterns with proven conversion rates
-- Visual hierarchy techniques for the product's primary user flows
-- CTA placement, whitespace usage, scanning patterns
+**4. EVALUATION CRITERIA**
+- Design quality metrics: visual polish, consistency, accessibility compliance, conversion optimization
+- How to weigh conflicting design approaches
+- What makes a design reference "relevant" vs. "noise" for this specific product
 
-**8. ACCESSIBILITY**
-- WCAG compliance patterns for this product type
-- Inclusive design approaches
-- Contrast, focus management, screen reader considerations
+**5. EXPECTED OUTPUT**
+- What results should appear in the final report?
+- What structure should the report follow?
+- Next steps after the research (recommendations for what to do with the design findings)
 
-**9. SPACING, SHADOW, AND RHYTHM TRENDS**
-- Current spacing systems (4px, 8px grids)
-- Shadow and depth trends (flat, subtle elevation, neumorphism)
-- Visual rhythm and consistency patterns
+**6. CUSTOM INSTRUCTIONS**
+- Tailored quality instructions specific to the product's design context (3-5 instructions)
+- Examples: focus on mobile-first patterns, prioritize accessibility, include dark mode considerations, emphasize conversion-optimized layouts, require real-world app screenshots/references
 
-**10. INNOVATIVE FEATURES FROM ADJACENT CATEGORIES**
-- Design ideas borrowed from unrelated product categories
-- Novel interaction models
-- Experimental approaches worth testing
-
-For each category, the prompt must produce **3-5 query variations** written for different AI tools (some tools respond better to academic framing, others to practical framing, others to example-based queries).
+**Quality guidelines:**
+- The plan should be systematic and actionable — no fluff, no filler
+- Include only actions and sources a language model can execute in a single Deep Research run
+- The final prompt should be self-contained — no external context needed
+- Target 95% success rate: the plan should be clear enough that any Deep Research tool produces thorough, accurate design research
+- Keep the plan focused — typically 300-600 words. Long enough to be precise, short enough to not dilute focus
 
 Format the output as a clearly labeled, copy-pasteable block:
 

@@ -166,3 +166,119 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+
+// ---------- Skill Card Detail Panels ----------
+(function initSkillPanels() {
+  const grids = document.querySelectorAll('.skills-grid');
+  if (!grids.length) return;
+
+  grids.forEach(grid => {
+    const panel = grid.querySelector('.skill-detail-panel');
+    if (!panel) return;
+    const contentArea = panel.querySelector('.skill-detail-content');
+    const closeBtn = panel.querySelector('.detail-close-btn');
+    const cards = grid.querySelectorAll('.skill-card');
+
+    function getGridCols() {
+      return getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+    }
+
+    function collapsePanel() {
+      cards.forEach(c => c.classList.remove('active'));
+      panel.classList.remove('open');
+      setTimeout(() => {
+        if (!panel.classList.contains('open')) {
+          panel.hidden = true;
+          panel.setAttribute('aria-hidden', 'true');
+        }
+      }, 500);
+    }
+
+    function positionPanelAfterRow(clickedCard) {
+      const cols = getGridCols();
+      const children = Array.from(grid.children).filter(
+        el => !el.classList.contains('skill-detail-panel')
+      );
+      const cardIndex = children.indexOf(clickedCard);
+      const rowEnd = Math.min(
+        Math.ceil((cardIndex + 1) / cols) * cols - 1,
+        children.length - 1
+      );
+      children[rowEnd].after(panel);
+    }
+
+    cards.forEach(card => {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+
+      function handleActivate() {
+        const skill = card.dataset.skill;
+        const isActive = card.classList.contains('active');
+
+        // Close current
+        cards.forEach(c => c.classList.remove('active'));
+
+        if (isActive) {
+          collapsePanel();
+          return;
+        }
+
+        // Load content from template
+        const template = document.getElementById('detail-' + skill);
+        if (!template) return;
+        contentArea.innerHTML = '';
+        contentArea.appendChild(template.content.cloneNode(true));
+
+        // Inherit card accent color
+        const accent = getComputedStyle(card).getPropertyValue('--card-accent').trim();
+        if (accent) {
+          panel.style.setProperty('--card-accent', accent);
+        }
+
+        // Position and open
+        positionPanelAfterRow(card);
+        panel.hidden = false;
+        panel.setAttribute('aria-hidden', 'false');
+        card.classList.add('active');
+
+        // Force reflow, then open
+        void panel.offsetHeight;
+        panel.classList.add('open');
+
+        // Scroll into view
+        setTimeout(() => {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+
+      card.addEventListener('click', handleActivate);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleActivate();
+        }
+      });
+    });
+
+    // Close button
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        collapsePanel();
+      });
+    }
+
+    // Reposition on resize if panel is open
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const activeCard = grid.querySelector('.skill-card.active');
+        if (activeCard && panel.classList.contains('open')) {
+          positionPanelAfterRow(activeCard);
+        }
+      }, 150);
+    });
+  });
+})();

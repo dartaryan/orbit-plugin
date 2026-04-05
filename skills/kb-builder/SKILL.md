@@ -53,45 +53,54 @@ Once you have the answers, generate all four stage prompts below.
 
 ### Stage 0 — Scatter Search (Boomerang B)
 
-Generate a research prompt designed to be run identically (or with minor adaptation) across multiple AI tools in parallel — Perplexity, Claude, GPT, Gemini, Grok, DeepSeek, and any specialized tools the user listed.
+Generate a research plan prompt designed to be run identically (or with minor adaptation) across multiple AI tools in parallel — Perplexity, Claude, GPT, Gemini, Grok, DeepSeek, and any specialized tools the user listed. The prompt must be a precise, systematic research plan designed to extract maximum value from each Deep Research run.
 
-The prompt must instruct each tool to provide:
+**Critical: Think carefully about strategy.** The most important creative decision is choosing the right research strategy for the topic type. Don't default to a generic approach. Examples:
 
-**1. KEY FACTS AND DATA**
-- Core facts, statistics, and data points about the topic
-- Quantitative information where available
-- Definitions of key terms and concepts
+- **Comparative research** (e.g., "best X for Y") → Tournament strategy: define criteria, split into pairs, compare, filter winners
+- **Market research** (e.g., "market size for X") → Funnel strategy: start broad (global data), narrow to segment, validate with multiple sources
+- **Technical investigation** (e.g., "how does X work") → Layered strategy: start with overview, then dive into each component, cross-reference
+- **Sourcing/procurement** (e.g., "find suppliers for X") → Scout strategy: identify candidates, filter by criteria, deep-dive top results
+- **Trend analysis** (e.g., "what's happening with X") → Timeline strategy: map historical → current → projected, identify inflection points
 
-**2. FRAMEWORKS AND METHODOLOGIES**
-- Established frameworks, models, and approaches related to the topic
-- How practitioners and experts organize thinking about this subject
-- Competing schools of thought, if any
+Adapt and invent strategies as needed — these are just starting points.
 
-**3. RECENT DEVELOPMENTS**
-- Latest trends, updates, and shifts in the field
-- Emerging directions and predictions
-- What has changed in the last 1-2 years
+The generated research plan MUST include all six sections below. Adapt the content and depth of each section to the specific knowledge base topic.
 
-**4. DIFFERENT PERSPECTIVES**
-- How different stakeholders, industries, or disciplines view the topic
-- Cultural, regional, or domain-specific variations
-- Minority viewpoints that challenge the mainstream
+**1. OPENING STATEMENT**
+- Precise explanation of the research goal
+- Use quality activation words: "Ultimate", "Comprehensive", "most thorough", "exhaustive"
+- Set the scope and boundaries clearly
 
-**5. PRACTICAL EXAMPLES AND CASE STUDIES**
-- Real-world applications and implementations
-- Success stories and failure stories
-- Concrete examples that illustrate abstract concepts
+**2. KEY RESEARCH OBJECTIVES**
+- What exact questions should the research answer? (list 3-7 specific questions)
+- What type of information is needed? (quantitative data, qualitative analysis, comparisons, recommendations)
 
-**6. CONTROVERSIES, LIMITATIONS, AND OPEN QUESTIONS**
-- Unresolved debates in the field
-- Known limitations of current approaches
-- Questions that experts still disagree on
+**3. RESEARCH METHODS**
+- How to collect and analyze information?
+- Which specific strategy to use? (choose and describe the most efficient approach for THIS topic)
+- Break the strategy into clear sequential steps the AI can follow in a single operation
 
-The prompt must also instruct each tool to:
+**4. EVALUATION CRITERIA**
+- Metrics, benchmarks, or qualitative considerations for comparison
+- Success or feasibility criteria
+- How to weigh conflicting information
 
-- Cite sources where possible (URLs, paper titles, organization names)
-- Mark speculative or uncertain information as such
-- Note the date or recency of information provided
+**5. EXPECTED OUTPUT**
+- What results should appear in the final report?
+- What structure should the report follow?
+- Next steps after the research (recommendations for what to do with the output)
+
+**6. CUSTOM INSTRUCTIONS**
+- Tailored quality instructions specific to the topic (3-5 instructions)
+- Examples: academic depth, recency requirements, citation standards, format preferences
+
+**Quality guidelines:**
+- The plan should be systematic and actionable — no fluff, no filler
+- Include only actions and sources a language model can execute in a single Deep Research run
+- The final prompt should be self-contained — no external context needed
+- Target 95% success rate: the plan should be clear enough that any Deep Research tool produces thorough, accurate results
+- Keep the plan focused — typically 300-600 words. Long enough to be precise, short enough to not dilute focus
 
 Format the output as a clearly labeled, copy-pasteable block:
 

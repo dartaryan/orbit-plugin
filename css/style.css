@@ -482,12 +482,20 @@ section {
 .skill-card[data-skill="t"] .skill-card-letter { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
 .skill-card[data-skill="t"] .skill-tag { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
 
-.skill-card[data-skill="compound"] { --card-accent: var(--orbit-cyan); }
-.skill-card[data-skill="compound"] .skill-card-letter {
+.skill-card[data-skill="human-router"],
+.skill-card[data-skill="kb-builder"],
+.skill-card[data-skill="design-pipeline"] { --card-accent: var(--orbit-cyan); }
+
+.skill-card[data-skill="human-router"] .skill-card-letter,
+.skill-card[data-skill="kb-builder"] .skill-card-letter,
+.skill-card[data-skill="design-pipeline"] .skill-card-letter {
   background: linear-gradient(135deg, var(--orbit-cyan-dim), var(--orbit-purple-dim));
   color: var(--orbit-cyan);
 }
-.skill-card[data-skill="compound"] .skill-tag {
+
+.skill-card[data-skill="human-router"] .skill-tag,
+.skill-card[data-skill="kb-builder"] .skill-tag,
+.skill-card[data-skill="design-pipeline"] .skill-tag {
   background: linear-gradient(135deg, var(--orbit-cyan-dim), var(--orbit-purple-dim));
   color: var(--orbit-cyan);
 }
@@ -495,6 +503,245 @@ section {
 /* Compound cards span 2 cols on desktop */
 .skill-card.compound {
   grid-column: span 1;
+}
+
+/* ---------- Expand Hint ---------- */
+.skill-expand-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  font-size: 0.78rem;
+  color: var(--star-faint);
+  font-family: var(--font-heading);
+  transition: color var(--duration-normal) ease;
+}
+
+.skill-expand-hint i {
+  font-size: 0.85rem;
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.skill-card:hover .skill-expand-hint {
+  color: var(--card-accent, var(--orbit-cyan));
+}
+
+.skill-card.active .skill-expand-hint i {
+  transform: rotate(180deg);
+}
+
+.skill-card.active .skill-expand-hint {
+  color: var(--card-accent, var(--orbit-cyan));
+}
+
+/* ---------- Skill Detail Panel ---------- */
+.skill-detail-panel {
+  grid-column: 1 / -1;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--duration-slow) var(--ease-out-expo),
+              opacity var(--duration-normal) var(--ease-out-expo);
+}
+
+.skill-detail-panel.open {
+  max-height: 3000px;
+  opacity: 1;
+}
+
+.skill-detail-panel[hidden] {
+  display: none;
+}
+
+.skill-detail-inner {
+  position: relative;
+  background: var(--space-surface);
+  border: 1px solid var(--card-accent, var(--space-border));
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+}
+
+.detail-close-btn {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 2;
+  background: transparent;
+  border: 1px solid var(--space-border);
+  border-radius: var(--radius-sm);
+  color: var(--star-dim);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+}
+
+.detail-close-btn:hover {
+  color: var(--star-white);
+  border-color: var(--star-dim);
+  background: var(--space-surface-hover);
+}
+
+/* Active card state */
+.skill-card.active {
+  border-color: var(--card-accent, var(--orbit-cyan));
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.skill-card.active::before {
+  opacity: 1;
+}
+
+/* Detail content layout */
+.detail-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+
+.detail-section {
+  min-width: 0;
+}
+
+.detail-section h4 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--star-white);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.detail-section h4 i {
+  color: var(--card-accent, var(--orbit-cyan));
+  font-size: 1.1rem;
+}
+
+.detail-section p {
+  color: var(--star-dim);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.detail-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-section li {
+  color: var(--star-dim);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  padding-left: var(--space-md);
+  position: relative;
+}
+
+.detail-section li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--card-accent, var(--orbit-cyan));
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.detail-section strong {
+  color: var(--star-white);
+  font-weight: 600;
+}
+
+/* Detail example block */
+.detail-example {
+  background: var(--space-void);
+  border: 1px solid var(--space-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-top: var(--space-sm);
+}
+
+.detail-example p {
+  color: var(--star-dim);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* Stages table (for KB Builder and Design Pipeline) */
+.detail-stages {
+  grid-column: 1 / -1;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.detail-stages-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-top: var(--space-sm);
+}
+
+.detail-stages-table th {
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--star-faint);
+  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--space-border);
+}
+
+.detail-stages-table td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid rgba(30, 41, 59, 0.4);
+  color: var(--star-dim);
+  line-height: 1.6;
+  vertical-align: top;
+}
+
+.detail-stages-table tr:last-child td {
+  border-bottom: none;
+}
+
+.detail-stages-table .stage-num {
+  font-family: var(--font-mono);
+  color: var(--card-accent, var(--orbit-cyan));
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.detail-stages-table .stage-name {
+  color: var(--star-white);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* RTL support for detail panels */
+body[dir="rtl"] .detail-close-btn {
+  right: auto;
+  left: var(--space-md);
+}
+
+body[dir="rtl"] .detail-section li {
+  padding-left: 0;
+  padding-right: var(--space-md);
+}
+
+body[dir="rtl"] .detail-section li::before {
+  left: auto;
+  right: 0;
+  content: '<';
+}
+
+body[dir="rtl"] .detail-stages-table th {
+  text-align: right;
 }
 
 /* ---------- Install Section ---------- */
@@ -846,6 +1093,14 @@ body[data-active-lang="he"] a[data-lang="en"] { display: none; }
   .install-step {
     flex-direction: column;
     gap: var(--space-md);
+  }
+
+  .detail-content {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-detail-inner {
+    padding: var(--space-lg) var(--space-md);
   }
 }
 
