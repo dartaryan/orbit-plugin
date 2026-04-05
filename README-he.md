@@ -58,7 +58,7 @@
 
 ### אופציה 2 — הורדה ידנית
 
-1. **[הורדת orbit-plugin.zip](https://github.com/benakiva/orbit-plugin/releases/latest/download/orbit-plugin.zip)**
+1. **[הורדת orbit-plugin.zip](https://github.com/dartaryan/orbit-plugin/releases/latest/download/orbit-plugin.zip)**
 2. לחלץ ולהעתיק את התוכן לתיקייה `.claude/plugins/orbit/` בפרויקט
 3. להפעיל מחדש את Claude Code
 
@@ -123,7 +123,7 @@
 ## פיתוח מקומי
 
 ```bash
-git clone https://github.com/benakiva/orbit-plugin.git
+git clone https://github.com/dartaryan/orbit-plugin.git
 cd orbit-plugin
 # לעקוב אחרי הוראות ההתקנה ב-CONTRIBUTING.md
 ```
@@ -143,7 +143,7 @@ MIT — ראו [LICENSE](LICENSE) לפרטים מלאים.
 ---
 
 <p align="center">
-  <sub>נבנה על ידי <a href="https://github.com/benakiva">בן עקיבא</a></sub>
+  <sub>נבנה על ידי <a href="https://github.com/dartaryan">בן עקיבא</a></sub>
 </p>
 
 </div>

@@ -56,7 +56,7 @@ Plus **2 compound workflows**:
 
 ### Option 2 — Manual Download
 
-1. **[Download orbit-plugin.zip](https://github.com/benakiva/orbit-plugin/releases/latest/download/orbit-plugin.zip)**
+1. **[Download orbit-plugin.zip](https://github.com/dartaryan/orbit-plugin/releases/latest/download/orbit-plugin.zip)**
 2. Extract and copy the contents into your project's `.claude/plugins/orbit/` directory
 3. Restart Claude Code
 
@@ -121,7 +121,7 @@ That's the loop. Describe the mission, ORBIT generates the prompts, carry them b
 ## Local Development
 
 ```bash
-git clone https://github.com/benakiva/orbit-plugin.git
+git clone https://github.com/dartaryan/orbit-plugin.git
 cd orbit-plugin
 # Follow local setup instructions in CONTRIBUTING.md
 ```
@@ -141,5 +141,5 @@ MIT — see [LICENSE](LICENSE) for full terms.
 ---
 
 <p align="center">
-  <sub>Built by <a href="https://github.com/benakiva">Ben Akiva</a></sub>
+  <sub>Built by <a href="https://github.com/dartaryan">Ben Akiva</a></sub>
 </p>
